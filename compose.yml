@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  bot:
+    image: ghcr.io/pascalporedda/telegram-typefully-bot:latest
+    container_name: telegram-typefully-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Mount the SQLite database file
+      - ./bot.db:/app/bot.db
+      # Mount the voice notes directory
+      - ./voice-notes:/app/voice-notes
+    # Ensure the database file and voice-notes directory exist
+    init: true
+    # Add healthcheck to monitor the bot
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/bot.db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# Create named volumes for persistence
+volumes:
+  voice-notes:
+    name: telegram-typefully-bot-voice-notes
+    driver: local

@@ -13,13 +13,36 @@ A Telegram bot that transcribes voice notes and creates social media drafts in T
 
 ## Prerequisites
 
-- Rust (latest stable version)
-- SQLite
+- Rust (latest stable version) OR Docker
+- SQLite (only for non-Docker setup)
 - A Telegram Bot Token (from [@BotFather](https://t.me/botfather))
 - A Typefully API Key (from [Typefully Settings](https://typefully.com))
 - An OpenAI API Key (optional for users, required for bot operator)
 
 ## Setup
+
+### Using Docker (Recommended)
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/telegram-typefully-bot
+cd telegram-typefully-bot
+```
+
+2. Run the setup script:
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+3. Edit the `.env` file with your API keys
+
+4. Start the bot:
+```bash
+docker compose up -d
+```
+
+### Manual Setup
 
 1. Clone the repository:
 ```bash
@@ -90,6 +113,12 @@ The bot uses SQLite for data storage, with tables for:
 | TELOXIDE_TOKEN | Your Telegram Bot Token | Yes |
 | OPENAI_API_KEY | OpenAI API Key for free tier usage | Yes |
 | RUST_LOG | Log level (e.g., "info") | No |
+
+## Docker Volumes
+
+The Docker setup uses two mounted volumes:
+- `./bot.db:/app/bot.db` - SQLite database file
+- `./voice-notes:/app/voice-notes` - Temporary storage for voice notes
 
 ## Contributing
 

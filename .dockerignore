@@ -1,2 +1,36 @@
-voice-notes/
+# Git
+.git
+.gitignore
+.github
+
+# Rust
 target/
+**/*.rs.bk
+
+# Environment
+.env
+.env.*
+
+# Docker
+Dockerfile
+docker-compose.yml
+compose.yml
+
+# Data
+bot.db
+voice-notes/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Scripts
+setup.sh
+*.sh
