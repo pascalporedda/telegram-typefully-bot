@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO deleted_users (telegram_id, total_usage_seconds, deleted_at)\n            VALUES (?, ?, ?)\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "e96fe12f9b2c7d7b87a8cd979b05edfd55df7bf4122cb3408c9ddfbdf4bd5275"
+}

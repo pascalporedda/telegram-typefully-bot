@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Copy the Cargo files first to cache dependencies
 COPY Cargo.toml Cargo.lock ./
 
-# Create a dummy main.rs to build dependencies
-RUN mkdir src && \
-  echo "fn main() {}" > src/main.rs && \
-  cargo build --release && \
-  rm -rf src
+# # Create a dummy main.rs to build dependencies
+# RUN mkdir src && \
+#   echo "fn main() { println!(\"Hello, world!\"); }" > src/main.rs && \
+#   cargo build --release && \
+#   rm -rf src
 
 # Copy the actual source code
 COPY . .
@@ -38,14 +38,10 @@ RUN apt-get update && apt-get install -y \
 # Copy the binary from builder
 COPY --from=builder /usr/src/app/target/release/telegram-typefully-bot /app/telegram-typefully-bot
 
-# Create necessary directories
-RUN mkdir -p /app/voice-notes && \
-  touch /app/bot.db && \
-  chmod 755 /app/voice-notes && \
-  chmod 644 /app/bot.db
-
-# Run as non-root user
-RUN useradd -m -u 1000 bot
-USER bot
+# # Create necessary directories
+# RUN mkdir -p /app/voice-notes && \
+#   touch /app/bot.db && \
+#   chmod 755 /app/voice-notes && \
+#   chmod 644 /app/bot.db
 
 CMD ["/app/telegram-typefully-bot"]
