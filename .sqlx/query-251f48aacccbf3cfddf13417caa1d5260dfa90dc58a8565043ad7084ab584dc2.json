@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE users SET typefully_api_key = ? WHERE telegram_id = ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "251f48aacccbf3cfddf13417caa1d5260dfa90dc58a8565043ad7084ab584dc2"
+}

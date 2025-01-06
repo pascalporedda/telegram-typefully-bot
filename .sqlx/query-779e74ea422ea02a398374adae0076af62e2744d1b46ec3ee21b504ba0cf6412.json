@@ -1,0 +1,44 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            SELECT telegram_id, username, created_at, typefully_api_key, openai_api_key\n            FROM users\n            WHERE telegram_id = ?\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "telegram_id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "username",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "created_at",
+        "ordinal": 2,
+        "type_info": "Datetime"
+      },
+      {
+        "name": "typefully_api_key",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "openai_api_key",
+        "ordinal": 4,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "779e74ea422ea02a398374adae0076af62e2744d1b46ec3ee21b504ba0cf6412"
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            UPDATE users\n            SET openai_api_key = ?\n            WHERE telegram_id = ?\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "88457f2cb0cb0e3b32bd3c23fa6f34c5bf94c363c94651b9e4789c7df3540a1d"
+}

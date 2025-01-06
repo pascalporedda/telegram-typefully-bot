@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO voice_note_usage (telegram_id, duration_seconds, created_at)\n            VALUES (?, ?, ?)\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "2cbef5cf90c64397f5323a94b15642bf1a9900eb721de1be978c9087c87ecbd0"
+}

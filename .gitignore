@@ -1,0 +1,5 @@
+/target
+/voice-notes
+*.db**
+.env
+bot.db
