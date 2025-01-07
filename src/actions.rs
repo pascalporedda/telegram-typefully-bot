@@ -235,7 +235,14 @@ pub async fn handle_voice_note(bot: Bot, db: Arc<Database>, msg: Message) -> Han
 
             bot.send_message(msg.chat.id, "Transcription done.").await?;
 
-            match make_summary(user.username, transcript, api_key).await {
+            match make_summary(
+                user.username.clone(),
+                transcript,
+                api_key,
+                user.rewrite_enabled,
+            )
+            .await
+            {
                 Ok(summary) => {
                     bot.send_message(
                         msg.chat.id,
@@ -365,6 +372,30 @@ pub async fn set_typefully_key(bot: Bot, dialog: BotDialogue, msg: Message) -> H
     bot.send_message(
         msg.chat.id,
         "Please provide your new Typefully API key. You can get it from https://typefully.com, go to settings -> API & Integrations.",
+    )
+    .await?;
+
+    Ok(())
+}
+
+pub async fn toggle_rewrite(bot: Bot, db: Arc<Database>, msg: Message) -> HandlerResult {
+    let user = user_extractor(&bot, &db, &msg).await?;
+    let new_value = user.toggle_rewrite(&db).await?;
+
+    let status = if new_value { "enabled" } else { "disabled" };
+
+    bot.send_message(
+        msg.chat.id,
+        format!(
+            "AI rewriting is now {}. When {}, the bot will {}.",
+            status,
+            status,
+            if new_value {
+                "enhance and rewrite your voice notes for better social media impact"
+            } else {
+                "only format your voice notes without changing the content"
+            }
+        ),
     )
     .await?;
 

@@ -18,6 +18,7 @@ pub struct User {
     pub username: String,
     pub typefully_api_key: Option<String>,
     pub openai_api_key: Option<String>,
+    pub rewrite_enabled: bool,
     #[allow(unused)]
     pub created_at: OffsetDateTime,
 }
@@ -50,6 +51,24 @@ impl User {
 
         Ok(())
     }
+
+    pub async fn toggle_rewrite(&self, db: &Database) -> Result<bool> {
+        let new_value = !self.rewrite_enabled;
+
+        sqlx::query!(
+            r#"
+            UPDATE users
+            SET rewrite_enabled = ?
+            WHERE telegram_id = ?
+            "#,
+            new_value,
+            self.telegram_id
+        )
+        .execute(&db.pool)
+        .await?;
+
+        Ok(new_value)
+    }
 }
 
 pub const FREE_USAGE_LIMIT_SECONDS: i32 = 300;
@@ -69,7 +88,7 @@ impl Database {
         let user = sqlx::query_as!(
             User,
             r#"
-            SELECT telegram_id, username, created_at, typefully_api_key, openai_api_key
+            SELECT telegram_id, username, created_at, typefully_api_key, openai_api_key, rewrite_enabled
             FROM users
             WHERE telegram_id = ?
             "#,

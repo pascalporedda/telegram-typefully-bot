@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            UPDATE users\n            SET rewrite_enabled = ?\n            WHERE telegram_id = ?\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "07db01fcd035a335738a3b19786fc8caa0a40e1d6c573eff908c43ea7396a25f"
+}

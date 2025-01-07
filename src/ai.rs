@@ -25,6 +25,21 @@ Whenever you get a text you should do the following:
 8. Make sure you don't use typical AI words like: driven, motivated, inspired, delve, into the future 
 "#;
 
+const FORMAT_ONLY_INSTRUCTIONS: &str = r#"You are an expert for formatting text in any language. Sometimes you get a text in German, English, Spanish or other languages.
+
+You get a text from a user and you should format it for social media.
+Your responses should ALWAYS be IN the language of the USERS TEXT.
+
+Whenever you get a text you should do the following:
+
+1. Properly format the given text, making it readable, by adding appropriate commas, breaks etc.
+2. Don't change the content or meaning of the text.
+3. Don't add or remove any information.
+4. Don't use hashtags.
+5. Don't add emojis.
+6. Keep the original tone and style of the text.
+"#;
+
 pub async fn transcribe_voice_note(path: PathBuf, api_key: String) -> anyhow::Result<String> {
     // TODO: error handling and keeping the client static
     let client = OpenAIClient::builder()
@@ -46,6 +61,7 @@ pub async fn make_summary(
     from_user: String,
     text: String,
     api_key: String,
+    rewrite_enabled: bool,
 ) -> anyhow::Result<String> {
     let client = OpenAIClient::builder()
         .with_api_key(api_key)
@@ -53,10 +69,16 @@ pub async fn make_summary(
         .ok()
         .with_context(|| "")?;
 
+    let instructions = if rewrite_enabled {
+        SUMMARY_INSTRUCTIONS
+    } else {
+        FORMAT_ONLY_INSTRUCTIONS
+    };
+
     let msgs = vec![
         ChatCompletionMessage {
             role: MessageRole::system,
-            content: chat_completion::Content::Text(SUMMARY_INSTRUCTIONS.to_string()),
+            content: chat_completion::Content::Text(instructions.to_string()),
             name: None,
             tool_calls: None,
             tool_call_id: None,

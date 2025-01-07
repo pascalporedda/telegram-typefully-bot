@@ -28,6 +28,8 @@ pub enum BotCommand {
     SetTypefullyKey,
     #[command(description = "Check your remaining free usage")]
     Usage,
+    #[command(description = "Toggle between AI rewriting and simple formatting")]
+    ToggleRewrite,
     #[command(description = "Start using the bot")]
     Start,
     #[command(description = "Delete your account and all data")]
@@ -57,6 +59,7 @@ pub fn bot_schema() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + '
         .branch(case![BotCommand::SetApiKey].endpoint(actions::set_api_key))
         .branch(case![BotCommand::SetTypefullyKey].endpoint(actions::set_typefully_key))
         .branch(case![BotCommand::Usage].endpoint(actions::usage))
+        .branch(case![BotCommand::ToggleRewrite].endpoint(actions::toggle_rewrite))
         .branch(case![BotCommand::DeleteAccount].endpoint(actions::delete_account));
 
     let message_handler = Update::filter_message()

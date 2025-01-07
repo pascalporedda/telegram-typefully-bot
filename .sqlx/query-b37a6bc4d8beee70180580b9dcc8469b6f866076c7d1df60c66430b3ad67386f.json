@@ -27,6 +27,11 @@
         "name": "created_at",
         "ordinal": 4,
         "type_info": "Datetime"
+      },
+      {
+        "name": "rewrite_enabled",
+        "ordinal": 5,
+        "type_info": "Bool"
       }
     ],
     "parameters": {
@@ -37,6 +42,7 @@
       false,
       true,
       true,
+      false,
       false
     ]
   },

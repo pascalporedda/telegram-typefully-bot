@@ -1,6 +1,6 @@
 {
   "db_name": "SQLite",
-  "query": "\n            SELECT telegram_id, username, created_at, typefully_api_key, openai_api_key\n            FROM users\n            WHERE telegram_id = ?\n            ",
+  "query": "\n            SELECT telegram_id, username, created_at, typefully_api_key, openai_api_key, rewrite_enabled\n            FROM users\n            WHERE telegram_id = ?\n            ",
   "describe": {
     "columns": [
       {
@@ -27,6 +27,11 @@
         "name": "openai_api_key",
         "ordinal": 4,
         "type_info": "Text"
+      },
+      {
+        "name": "rewrite_enabled",
+        "ordinal": 5,
+        "type_info": "Bool"
       }
     ],
     "parameters": {
@@ -37,8 +42,9 @@
       false,
       false,
       true,
-      true
+      true,
+      false
     ]
   },
-  "hash": "779e74ea422ea02a398374adae0076af62e2744d1b46ec3ee21b504ba0cf6412"
+  "hash": "c07428fd7efdce0e5960f8752b3433aff62850814e225de329df40896f40e54a"
 }
